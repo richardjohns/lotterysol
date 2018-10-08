@@ -15,9 +15,16 @@ const ganache = require('ganache-cli')
 // gain access to a contract, call a function on a contract or send money - all are async actions
 const Web3 = require('web3')
 // creates unlocked accounts (ie can send tx without worrying about public/private keys or security) for us for testing
-const web3 = new Web3(ganache.provider())
+// const web3 = new Web3(ganache.provider())
+
+// 2 extra lines due to bug
+const provider = ganache.provider()
+const web3 = new Web3(provider)
+
+const { interface, bytecode } = require('../compile')
 
 let accounts;
+let inbox;
 
 beforeEach(async () => {
     // Get a list of all accounts
@@ -28,13 +35,27 @@ beforeEach(async () => {
         // .then(fetchedAccounts => {
         //   console.log(fetchedAccounts)
         // })
+
     // Use one of those accounts to deploy the contract
 
+    // JSON.parse(interface) is the ABI. We parsed in order to send the Contract constructor a js object.
+    inbox = await new web3.eth.Contract(JSON.parse(interface))
+        // Creates an object. Arguments are the data expected by the fns within the contract.
+        .deploy({ data: bytecode, arguments: ['Hi there!'] })
+        // deploys the object created above to the network. Comment out and apply address test to counter test below.
+        .send({ from: accounts[0], gas: '1000000' })
+
+        // added due to bug
+        inbox.setProvider(provider)
 })
 
 describe('Inbox', () => {
     it('deploys a contract', () => {
-        console.log(accounts)
+        // console.log(accounts)
+        // console.log(inbox)
+        // if an address is present, it's likely the contract was deployed.
+        assert.ok(inbox.options.address)
+
     })
 })
 
