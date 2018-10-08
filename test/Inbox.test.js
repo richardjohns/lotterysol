@@ -17,19 +17,24 @@ const Web3 = require('web3')
 // creates unlocked accounts (ie can send tx without worrying about public/private keys or security) for us for testing
 const web3 = new Web3(ganache.provider())
 
-beforeEach(() => {
+let accounts;
+
+beforeEach(async () => {
     // Get a list of all accounts
-    // going to return a promise since as with everything web3 is async
+    // going to return a promise since as with everything web3 is async. But refactored with async/await.
 
     web3.eth.getAccounts()
-        .then(fetchedAccounts => {
-            console.log(fetchedAccounts)
-        })
+        accounts = await web3.eth.getAccounts()
+        // .then(fetchedAccounts => {
+        //   console.log(fetchedAccounts)
+        // })
     // Use one of those accounts to deploy the contract
 
 })
 
 describe('Inbox', () => {
-    it('deploys a contract', () => {})
+    it('deploys a contract', () => {
+        console.log(accounts)
+    })
 })
 
