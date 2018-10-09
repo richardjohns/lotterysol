@@ -55,7 +55,19 @@ describe('Inbox', () => {
         // console.log(inbox)
         // if an address is present, it's likely the contract was deployed.
         assert.ok(inbox.options.address)
+    })
 
+    it('has a default message', async () => {
+        const message = await inbox.methods.message().call()
+        assert.equal(message, 'Hi there!')
+    })
+
+    it('can change the message', async () => {
+        await inbox.methods.setMessage('bye').send({ from: accounts[0] })
+        // don't need to assert, as if it fails it will break test script
+
+        const message = await inbox.methods.message().call()
+        assert.equal(message, 'bye')
     })
 })
 
