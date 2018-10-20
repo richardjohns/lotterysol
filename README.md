@@ -1,6 +1,6 @@
 # lotterysol
 
-Lottery Dapp built using solidity &amp; node.js, and deployed to Rinkby test network.
+Ethereum Lottery Dapp built using solidity &amp; node.js, and deployed to Rinkby test network.
 
 The contract accepts entry fees of over 0.01 ether, and allows the manager to have the contract pick a psuedo-random winner who receives all proceeds.
 
