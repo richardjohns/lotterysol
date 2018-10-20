@@ -11,7 +11,7 @@ contract Lottery {
     
     function enter() public payable {
         // ensure some ether value is included with the fn call.
-        require(msg.value >= .01 ether);
+        require(msg.value >= .001 ether);
         players.push(msg.sender);
     }
     

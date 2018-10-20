@@ -1,11 +1,13 @@
 const HDWalletProvider = require('truffle-hdwallet-provider')
 const Web3 = require('web3')
+const mnemonic = require('./keys')
 const { interface, bytecode } = require('./compile')
 
 const provider = new HDWalletProvider(
-    'account mnemonic',
+    mnemonic,
     'https://rinkeby.infura.io/v3/e03afb307804401ab0173c2b24cdfc88'
 )
+console.log('This is mnemonic: ', mnemonic)
 
 // Will give us an instance of web3 to interact with the test network using the ether deposited
 // into the account via Rinkby faucet
@@ -19,6 +21,7 @@ const deploy = async () => {
     .deploy({ data: bytecode })
     .send({ gas: '1000000', from: accounts[0]})
     // below is the address that the contract was deployed to on the Rinkby network
+    console.log(interface)
     console.log('Contract deployed to: ', result.options.address)
 }
 deploy()
