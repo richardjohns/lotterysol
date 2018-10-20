@@ -7,7 +7,6 @@ const provider = new HDWalletProvider(
     mnemonic,
     'https://rinkeby.infura.io/v3/e03afb307804401ab0173c2b24cdfc88'
 )
-console.log('This is mnemonic: ', mnemonic)
 
 // Will give us an instance of web3 to interact with the test network using the ether deposited
 // into the account via Rinkby faucet
